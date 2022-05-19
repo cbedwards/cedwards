@@ -7,7 +7,7 @@ Personal R package, contianing various useful functions I have written and find 
 ```{r}
 install.packages("devtools")
 library("devtools")
-install_github('cbedwards', 'cedwards')
+install_github('cbedwards/cedwards')
 ```
 
 ### Use:
