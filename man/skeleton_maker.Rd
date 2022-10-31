@@ -4,10 +4,12 @@
 \alias{skeleton_maker}
 \title{Project directory maker}
 \usage{
-skeleton_maker(filepath = ".")
+skeleton_maker(project.name, filepath = ".")
 }
 \arguments{
-\item{filepath}{For identifying the root directory of the new project. Leave as '.' if the current working directory is the new project.}
+\item{project.name}{Name of the project itself, used for the root directory of the new project.}
+
+\item{filepath}{filepath for where the root directory will live. Defaults to working directory.}
 }
 \description{
 This function creates my preferred directory structure and key files for new research projects
@@ -20,6 +22,6 @@ In addition to folders, this creates:
 }
 }
 \examples{
-skeleton_maker("C:/repos/unicorn-pop-dynamics")
+skeleton_maker("unicorn-pop-dynamics")
 }
 \keyword{organization}

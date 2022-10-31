@@ -1,10 +1,10 @@
 #' Change Directory
-#' 
-#' Wrapper for setwd() using unix command form. 
-#' 
+#'
+#' Wrapper for setwd() using unix command form.
+#'
 #' @param filepath Filepath to set as current working directory.
-#' @export
 #' @keywords wrapper
+#' @export
 
 cd = function(filepath){
   setwd(filepath)

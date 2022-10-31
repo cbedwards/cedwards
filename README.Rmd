@@ -1,0 +1,92 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# cedwards
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of cedwards is to formalize the functions I store as gists or keep adding as new functions for every new project. These are include organization functions (`skeleton_maker.R`), plotting convenience functions (`gfig_saver.R`), and some other misc functions. This is a living package, and will continue to grow as I aggregate my common tools. 
+
+## Installation
+
+You can install the development version of cedwards from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("cbedwards/cedwards")
+```
+
+## Usage
+
+### Organization
+
+#### Project structure
+
+For setting up new projects, I've settled on a consistent file directory structure, and I find it is helpful to prepopulate a list of recommended reviewers and some other documentation files. This is streamlined in `skeleton_maker()`, which generates a new project with location specified by `filepath`. 
+
+#### Replicable figures
+
+A common issue (for me anyways) is that it's easy to have scripts saving figures, then come back later and 
+
+(a) not remember the details on that figure (what parameters was I using?), 
+
+(b) not remember which script generated it (I actually wrote some CLI code to search all R files for instances of the file name, but for auto-generation of figures based on parameter or scenario names, sometimes the full file name isn't listed in a single sequence in thes cript), and
+
+(c) realize I need to tweak a few pieces, but be unable to do so unless I track down, tweak, and re-run the script that generated the figure. 
+
+My solution is `gfig_saver`. This is largely a wrapper for ggsave(), but adds some functionality. First, it saves the figure in both .jpg and .pdf formats - depending on usage, one or the other format is handier, and it stinks to have to regnerate things. Second, it explicitly requires a description in string / vector of string form, which can take the form of a prototype figure caption. This is saved as a metadata file with the same naming structure as the figures, and can include information about what script generated the figure and when it was made. I highly encourage you (and myself) to take advantage of this. In the long run, I would have saved a lot of time by better documenting where figures came from. Finally, the function also saves the ggplot object as .RDS file. You can then load that into an R script and tweak themes, add or remove layers, etc, without having to re-run the original script. Obviously it's good practice to keep your original script updated, but this can be a huge time saver for something like tweaking formatting settings when submitting for publication in a new journal. 
+
+### Convenience
+
+#### `cd()`
+
+This is a wrapper for setwd() that lets you change directories using the linux command name. 
+
+#### `doy_2md()`
+
+Working with phenology (the timing of life history events in ecology) often means calculating the day of year of some process. But finding that the mean day-of-year of activity for the Monarch butterfly is day 134 is hard for many of us to parse (unless we've been working in phenology for a long time, like collaborators Cheryl Schultz or Elizabeth Crone). Is that number reasonable? What's the actual date? `doy_2md` to the rescue!
+
+```{r}
+doy_2md(134)
+```
+
+This function can also take vectors, and can be useful if you want to specify arbitrary ticks on a plot (although the `lubridate` package can be helpful with this). Here's an example without clear labels:
+
+```{r}
+## make up some data to plot
+N = 30
+dat = data.frame(doy = round(runif(N)*365))
+dat$count = rpois(N, lambda = 1000*dnorm(dat$doy, mean = 120, sd = 12))
+ggplot(data = dat, aes(x = doy, y = count))+
+  geom_point()+
+  xlab("Day of year (hard to interpret because numeric)")+
+  ylab("Number of butterflies seen")
+```
+
+And now, using doy_2md to help with tick marks:
+
+```{r}
+ticks.df = data.frame(breaks = seq(90, 230, length = 4))
+ticks.df$label = doy_2md(ticks.df$breaks, short=T)
+ggplot(data = dat, aes(x = doy, y = count))+
+  geom_point()+
+  xlab("Day of year")+
+  ylab("Number of butterflies seen")+
+  scale_x_continuous(breaks = ticks.df$breaks,
+                     labels = ticks.df$label)
+```
+
+
