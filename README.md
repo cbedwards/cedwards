@@ -4,6 +4,7 @@
 ``` r
 library(cedwards)
 library(ggplot2)
+#> Warning: package 'ggplot2' was built under R version 4.2.2
 ```
 
 # cedwards
@@ -27,6 +28,52 @@ You can install the development version of cedwards from
 # install.packages("devtools")
 devtools::install_github("cbedwards/cedwards")
 ```
+
+## Todo
+
+List of some additional functions I will add as time permits.
+
+### ggplot assistant for presentations
+
+Sometimes when teaching or giving presentations, we need a series of
+plots adding in layers. Example: Raw data, raw data with fitted curve
+overlain, raw data with fitted curve and annotation or summary
+information.
+
+Key features:
+
+-   should take a list of ggplot layers as arguments
+-   also takes a main label
+
+Process: - creates subdirectory based on main label, creates cumulative
+figures for each argument, saved with sequential numbers
+
+Ideally the list of layers can also contain negative numbers. Negative
+*n* value indicates that the last *n* layers should be removed before
+adding the next layer. This way we can easily create bifurcating
+figure-generation paths based on alternate analyses.
+
+### FunPlotter
+
+Sometimes we need quick prototypes for a given function. Especially
+common when talking about distributions in stats classes. FunPlotter
+should take the desired functional form (in tex form? in R form?
+something else?) and, optionally, x and y limits, and create a
+reasonable visual of the function. Bonus points if it can optionally
+take the function and a list (LIST) of parameters, where if 1 or 2 of
+the parameters are provided as vectors, the resulting figure uses
+geom_path and / or facet_wrap to capture the variation.
+
+### BootMuffler
+
+Apply the [Muff et al. 2021](https://doi.org/10.1016/j.tree.2021.10.009)
+treatment to bootstrapped results using confidence intervals. Goal is to
+return the 95% CI (for reporting, potential plotting), 84% CI (for
+potential plotting), and either “no evidence”, “weak evidence”,
+“moderate evidence”, or “strong evidence” based on the 99%, 95%, 90%
+CLs. Should also (optionally?) provide the citations for Muff et al, and
+for [Payton et al. 2003](https://doi.org/10.1093/jis/3.1.34) (which is
+the citation for using 84% CIs for plotting.
 
 ## Usage
 
@@ -112,7 +159,7 @@ ggplot(data = dat, aes(x = doy, y = count))+
   ylab("Number of butterflies seen")
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 And now, using doy_2md to help with tick marks:
 
@@ -127,4 +174,4 @@ ggplot(data = dat, aes(x = doy, y = count))+
                      labels = ticks.df$label)
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
