@@ -38,20 +38,6 @@ devtools::install_github("cbedwards/cedwards")
 
 List of some additional functions I will add as time permits.
 
-### ggplot assistant for presentations
-
-Sometimes when teaching or giving presentations, we need a series of plots adding in layers. Example: Raw data, raw data with fitted curve overlain, raw data with fitted curve and annotation or summary information. 
-
-Key features:
-
-- should take a list of ggplot layers as arguments
-- also takes a main label
-
-Process:
-- creates subdirectory based on main label, creates cumulative figures for each argument, saved with sequential numbers
-
-Ideally the list of layers can also contain negative numbers. Negative *n* value indicates that the last *n* layers should be removed before adding the next layer. This way we can easily create bifurcating figure-generation paths based on alternate analyses.
-
 ### FunPlotter
 
 Sometimes we need quick prototypes for a given function. Especially common when talking about distributions in stats classes. FunPlotter should take the desired functional form (in tex form? in R form? something else?) and, optionally, x and y limits, and create a reasonable visual of the function. Bonus points if it can optionally take the function and a list (LIST) of parameters, where if 1 or 2 of the parameters are provided as vectors, the resulting figure uses geom_path and / or facet_wrap to capture the variation.
@@ -66,6 +52,10 @@ Apply the [Muff et al. 2021](https://doi.org/10.1016/j.tree.2021.10.009) treatme
 
 
 ## Usage
+
+### Communication
+
+When giving talks or lecturing, I often want to make a series of related plots, each with additional information on them. For example, I might show a functional form, then simulated data based on that functional form, then a model fitted to the simulated data. `ggplot_lister()` and `ggplot_list_saver()` streamline the workflow for this process by allowing you to specify a list of ggplot layers interspersed with commands to "save" the layers up to a given point, or remove previous layers before continuing.
 
 ### Organization
 
