@@ -33,26 +33,6 @@ devtools::install_github("cbedwards/cedwards")
 
 List of some additional functions I will add as time permits.
 
-### ggplot assistant for presentations
-
-Sometimes when teaching or giving presentations, we need a series of
-plots adding in layers. Example: Raw data, raw data with fitted curve
-overlain, raw data with fitted curve and annotation or summary
-information.
-
-Key features:
-
--   should take a list of ggplot layers as arguments
--   also takes a main label
-
-Process: - creates subdirectory based on main label, creates cumulative
-figures for each argument, saved with sequential numbers
-
-Ideally the list of layers can also contain negative numbers. Negative
-*n* value indicates that the last *n* layers should be removed before
-adding the next layer. This way we can easily create bifurcating
-figure-generation paths based on alternate analyses.
-
 ### FunPlotter
 
 Sometimes we need quick prototypes for a given function. Especially
@@ -76,6 +56,17 @@ for [Payton et al. 2003](https://doi.org/10.1093/jis/3.1.34) (which is
 the citation for using 84% CIs for plotting.
 
 ## Usage
+
+### Communication
+
+When giving talks or lecturing, I often want to make a series of related
+plots, each with additional information on them. For example, I might
+show a functional form, then simulated data based on that functional
+form, then a model fitted to the simulated data. `ggplot_lister()` and
+`ggplot_list_saver()` streamline the workflow for this process by
+allowing you to specify a list of ggplot layers interspersed with
+commands to “save” the layers up to a given point, or remove previous
+layers before continuing.
 
 ### Organization
 
