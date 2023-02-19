@@ -3,6 +3,8 @@
 export(cd)
 export(doy_2md)
 export(gfig_saver)
+export(ggplot_list_saver)
+export(ggplot_lister)
 export(skeleton_maker)
 import(dplyr)
 import(ggplot2)
